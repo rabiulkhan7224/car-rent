@@ -15,6 +15,10 @@ const NavBar = () => {
             isActive ? "text-red-500" : "text-black"
         } to={'/available-cars'}>Available Cars</NavLink></li>
         
+        <li><NavLink className={({ isActive }) =>
+            isActive ? "text-red-500" : "text-black"
+        } to={'/add-car'}>Add Car</NavLink></li>
+        
     </>
     const navigate = useNavigate()
     const handlelogOut = () => {
