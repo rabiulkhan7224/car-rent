@@ -15,7 +15,9 @@ const AddCar = () => {
         images: "",
         location: "",
         bookingCount: 0,
-        userEmail:user?.email
+        userEmail:user?.email,
+        addedDate: new Date(),
+        defaultBookingStatus: "available",
         
     });
     
@@ -37,9 +39,11 @@ const AddCar = () => {
 
 
     const handleChange = (e) => {
+        
         setCarDetails({ ...carDetails, [e.target.name]: e.target.value });
     };
 
+    console.log(carDetails)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -108,6 +112,7 @@ const AddCar = () => {
                     required
                 />
                  {/* Feature Checkboxes */}
+                 <a>
         <div className="space-y-2">
           <p className="font-medium">Select Features:</p>
           {featureOptions.map((feature) => (
@@ -121,7 +126,7 @@ const AddCar = () => {
               <span>{feature}</span>
             </label>
           ))}
-        </div>
+        </div></a>
                 <textarea
                     name="description"
                     value={carDetails.description}

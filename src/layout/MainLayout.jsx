@@ -5,11 +5,11 @@ import NavBar from "../components/NavBar";
 const MainLayout = () => {
     return (
         <div>
-            <div>
+            <div className="">
                 <NavBar></NavBar>
             </div>
 
-            <div className='min-h-[calc(100vh-306px)]'>
+            <div className='mt-28 min-h-[calc(100vh-306px)]'>
                 <Outlet />
             </div>
 
