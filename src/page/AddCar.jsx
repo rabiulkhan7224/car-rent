@@ -40,23 +40,23 @@ const AddCar = () => {
         setCarDetails({ ...carDetails, [e.target.name]: e.target.value });
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(carDetails)
-    //     try {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(carDetails)
+        try {
           
-    //         const {data}=await axios.post('http://localhost:5000/add-car',carDetails)
-    //         console.log(data)
-    //         if (data.insertedId) {
+            const {data}=await axios.post('http://localhost:5000/add-car',carDetails)
+            console.log(data)
+            if (data.insertedId) {
                  
-    //             toast.success('added car successful ')
+                toast.success('added car successful ')
                
-    //           } else {
-    //                 toast.warn("Failed to add car. Try again.");}
-    //     } catch (error) {
+              } else {
+                    toast.warn("Failed to add car. Try again.");}
+        } catch (error) {
          
-    //     toast.error(error)
-    // }}
+        toast.error(error)
+    }}
 
     return (
         <div className="max-w-2xl mx-auto p-6">
