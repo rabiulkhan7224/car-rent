@@ -18,7 +18,7 @@ const AddCar = () => {
         userEmail:user?.email
         
     });
-    console.log(user)
+    
  // List of available features
  const featureOptions = ["GPS", "AC", "Bluetooth", "Heated Seats", "Sunroof"];
 
@@ -42,7 +42,6 @@ const AddCar = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(carDetails)
         try {
           
             const {data}=await axios.post('http://localhost:5000/add-car',carDetails)
