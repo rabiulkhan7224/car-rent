@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const CarDetails = () => {
+    const {user}=useContext(AuthContext)
     const data=useLoaderData()
     const [car,setCar]=useState(data)
     console.log(data)
@@ -9,32 +13,62 @@ const CarDetails = () => {
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      phone: "",
-      pickUpLocation: "",
-      pickUpDate: "",
-      dropOffLocation: "",
-      dropOffDate: "",
-      message: "",
-    });
+    
     const [messageSent, setMessageSent] = useState(false);
+        const parse=parseInt(car.price)
+    const totalPricevat=parse*0.02+parse
+    console.log(totalPricevat)
   
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
+    const handleFormSubmit = async (e) => {
+      e.preventDefault(); 
+      const form = e.target;
   
-    const handleFormSubmit = (e) => {
-      e.preventDefault();
-      console.log("Reservation Data:", formData);
+      
+      const formData = {
+        name: form.name.value || user?.displayName || "",
+        email: form.email.value || user?.email || "",
+        phone: form.phone.value,
+        pickUpLocation: form.pickUpLocation.value,
+        pickUpDate: new Date(form.pickUpDate.value), 
+        dropOffLocation: form.dropOffLocation.value,
+        dropOffDate: new Date(form.dropOffDate.value), 
+        message: form.message.value,
+        
+        
+        carInfo:{id:data?._id,
+        carImg:car?.images,
+        carModel:car?.model
+        },
+        totalPrice: totalPricevat,
+        status: 'Pending',
+        bookingDate: new Date()
+      };
+  
+      console.log("Submitted Data:", formData);
+
+      try {
+          
+        const {data}=await axios.post(`${import.meta.env.VITE_url}/booking`,formData)
+        
+        if (data.insertedId) {
+             
+            toast.success('booking successful ')
+           
+          } else {
+                toast.warn("Failed to booking. Try again.");}
+    } catch (error) {
+     
+    toast.error(error.message)
+}
+
+  
+     
       setMessageSent(true);
-      setTimeout(() => {
-        setMessageSent(false);
-        setIsModalOpen(false);
-      }, 3000); // Close modal after showing the message
+      setTimeout(() => setMessageSent(false), 3000); 
+  
+      setIsModalOpen(false); 
     };
+  
     return (
       <div>
 
@@ -45,7 +79,7 @@ const CarDetails = () => {
   <div className="card-body">
     <h2 className="text-2xl "><span className="font-bold text-3xl lg:text-5xl">${car.price}</span>/per day</h2>
     <hr />
-    <h2 className="text-2xl font-bold">{car.model}</h2>
+    <h2 className="text-2xl font-bold">{car?.model}</h2>
     <ul>
         <li className="flex justify-between p-2">
             <span>Availability</span>
@@ -68,7 +102,7 @@ const CarDetails = () => {
     </ul>
 
     <div className="card-actions justify-end">
-      <button className="btn bg-orange-600 text-white hover:bg-green-800">book Now</button>
+      <button  onClick={() => setIsModalOpen(true)} className="btn bg-orange-600 text-white hover:bg-green-800">book Now</button>
     </div>
   </div>
 </div>
@@ -93,13 +127,7 @@ const CarDetails = () => {
         </div>
 
         <div className="p-4">
-      {/* Trigger Button */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="btn btn-primary"
-      >
-        Reserve Your Vehicle Today!
-      </button>
+     
 
       {/* Modal */}
       {isModalOpen && (
@@ -117,9 +145,9 @@ const CarDetails = () => {
                 <input
                   type="text"
                   name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
+                  defaultValue={user?.displayName}
+                
+                  readOnly
                   placeholder="Full Name"
                   className="input input-bordered w-full"
                 />
@@ -131,9 +159,8 @@ const CarDetails = () => {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
+                 defaultValue={user.email}
+                  readOnly
                   placeholder="Email Address"
                   className="input input-bordered w-full"
                 />
@@ -145,9 +172,9 @@ const CarDetails = () => {
                 <input
                   type="tel"
                   name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
+                 
                   required
+                 
                   placeholder="Phone Number"
                   className="input input-bordered w-full"
                 />
@@ -159,8 +186,7 @@ const CarDetails = () => {
                 <input
                   type="text"
                   name="pickUpLocation"
-                  value={formData.pickUpLocation}
-                  onChange={handleInputChange}
+                 
                   required
                   placeholder="Pick Up Location"
                   className="input input-bordered w-full"
@@ -173,8 +199,7 @@ const CarDetails = () => {
                 <input
                   type="date"
                   name="pickUpDate"
-                  value={formData.pickUpDate}
-                  onChange={handleInputChange}
+                 
                   required
                   className="input input-bordered w-full"
                 />
@@ -186,8 +211,7 @@ const CarDetails = () => {
                 <input
                   type="text"
                   name="dropOffLocation"
-                  value={formData.dropOffLocation}
-                  onChange={handleInputChange}
+                 
                   required
                   placeholder="Drop Off Location"
                   className="input input-bordered w-full"
@@ -200,8 +224,7 @@ const CarDetails = () => {
                 <input
                   type="date"
                   name="dropOffDate"
-                  value={formData.dropOffDate}
-                  onChange={handleInputChange}
+                 
                   required
                   className="input input-bordered w-full"
                 />
@@ -212,8 +235,7 @@ const CarDetails = () => {
                 <label className="block text-sm font-medium">Write Your Message</label>
                 <textarea
                   name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
+                 
                   placeholder="Write your message"
                   className="textarea textarea-bordered w-full"
                   rows="3"

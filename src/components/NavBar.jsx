@@ -67,7 +67,10 @@ const NavBar = () => {
                     {user ? <div className="dropdown dropdown-hover relative">
                         <div tabIndex={0} role="button" className=" m-1"><div className="avatar">
                             <div className="ring-primary ring-offset-base-100 w-16 rounded-full ring ring-offset-2">
-                                <img src={user?.photoURL} />
+                                <img 
+                                 referrerPolicy='no-referrer'
+                                src={user?.photoURL} 
+                                alt='User Profile Photo'/>
                             </div>
                         </div></div>
                         <ul tabIndex={0} className=" right-0 dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">

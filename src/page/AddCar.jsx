@@ -43,13 +43,13 @@ const AddCar = () => {
         setCarDetails({ ...carDetails, [e.target.name]: e.target.value });
     };
 
-    console.log(carDetails)
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           
-            const {data}=await axios.post('http://localhost:5000/add-car',carDetails)
-            console.log(data)
+            const {data}=await axios.post(`${import.meta.env.VITE_url}/add-cars`,carDetails)
+            
             if (data.insertedId) {
                  
                 toast.success('added car successful ')
@@ -63,8 +63,11 @@ const AddCar = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6">
-            <h2 className="text-2xl font-bold mb-6">Add New Car</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Add New Car</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+
+
                 <input
                     type="text"
                     name="model"
@@ -83,15 +86,7 @@ const AddCar = () => {
                     className="input input-bordered w-full"
                     required
                 />
-                {/* <input
-            type="text"
-            name="availability"
-            value={carDetails.availability}
-            onChange={handleChange}
-            placeholder="Availability (Yes/No)"
-            className="input input-bordered w-full"
-            required
-          /> */}
+                
                <select
           name="availability"
           value={carDetails.availability}
@@ -111,9 +106,10 @@ const AddCar = () => {
                     className="input input-bordered w-full"
                     required
                 />
+              </div>
                  {/* Feature Checkboxes */}
                  <a>
-        <div className="space-y-2">
+        <div className="space-y-2 ">
           <p className="font-medium">Select Features:</p>
           {featureOptions.map((feature) => (
             <label key={feature} className="flex items-center space-x-2">
@@ -153,7 +149,7 @@ const AddCar = () => {
                     className="input input-bordered w-full"
                     required
                 />
-                <button type="submit" className="btn btn-primary w-full">
+                <button type="submit" className="btn btn-accent w-full">
                     Save Car Details
                 </button>
             </form>
