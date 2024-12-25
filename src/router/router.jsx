@@ -7,6 +7,7 @@ import ErrorPage from '../error/ErrorPage';
 import AvailableCars from '../page/AvailableCars';
 import AddCar from '../page/AddCar';
 import CarDetails from '../page/CarDetails';
+import MyBookings from '../page/MyBookings';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
                 path:'/car-details/:id',
                 element:<CarDetails />,
                 loader: async({params})=> await fetch(`${import.meta.env.VITE_url}/car-details/${params.id}`)
+            },
+            {
+                path:'/mybookings',
+                element:<MyBookings />,
+               
             },
         ]
 

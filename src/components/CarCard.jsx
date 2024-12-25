@@ -1,7 +1,9 @@
 import { Link } from "react-router";
+import useFormatDate from "../hooks/useFormatDate";
 
 const CarCard = ({car}) => {
 
+const data =useFormatDate(car?.addedDate)
     /**{
     "_id": "6767c9bc98b489e7d9c633cb",
     "model": "toyota",
@@ -29,6 +31,7 @@ const CarCard = ({car}) => {
   <div className="card-body  ">
     <h2 className="font-bold text-3xl">{car?.model}</h2>
     <p>Location: {car?.location}</p>
+      <p>date: {data}</p>
    
     <hr />
     <div className="flex justify-between items-center">
