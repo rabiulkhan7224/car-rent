@@ -28,6 +28,7 @@ const Login = () => {
         .catch(error => {
           toast.error(error.message)
           console.log(error.message)
+          navigate('/register')
         })
     }
   
@@ -39,6 +40,7 @@ const Login = () => {
           navigate(location?.state ? location.state : "/")
         }).catch(error => {
           toast.error(error.message)
+          navigate('/register')
         })
     }
   

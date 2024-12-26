@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const navigate=useNavigate()
+
  const {registerUser,updateUserProfile}=useContext(AuthContext)
  const [error,setError]=useState('')
  
@@ -37,20 +39,20 @@ const Register = () => {
     setError("");
 
     registerUser(email,password)
-    .then(resutlt=>{
+    .then(result=>{
+      if(result)
       
       updateUserProfile({
         displayName:name,
         photoURL:photo
       })
-      .then(result=>{
-        if(result.user){
-          toast.success('successfull register')
-        }
-      })
-      .catch(error=>{
+      .then(() => {
+        toast.success('successfull register')
+          navigate('/login')
+      }).catch((error) => {
         toast.error(error.message)
-      })
+      });
+      
 
     })
     .catch(error=>{
