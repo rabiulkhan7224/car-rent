@@ -18,7 +18,7 @@ const AvailableCars = () => {
             <div>
                 <h1>sort</h1>
             </div>
-            <div className='grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
                     cars.map(car=><CarCard key={car._id} car={car}></CarCard>)
                 }

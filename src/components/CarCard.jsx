@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import useFormatDate from "../hooks/useFormatDate";
-
+import { motion } from "motion/react"
 const CarCard = ({car}) => {
 
 const data =useFormatDate(car?.addedDate)
@@ -21,7 +21,12 @@ const data =useFormatDate(car?.addedDate)
     "userEmail": "mdrabiulkhanbabo@gmail.com"
 } */
     return (
-        <div className="card bg-base-100 shadow-xl">
+        <motion.div 
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+        className="card bg-base-100 shadow-xl hover:bg-blue-100 ">
   <figure className="px-10 pt-10">
     <img
       src={car?.images}
@@ -31,8 +36,8 @@ const data =useFormatDate(car?.addedDate)
   <div className="card-body  ">
     <h2 className="font-bold text-3xl">{car?.model}</h2>
     <p>Location: {car?.location}</p>
-      <p>date: {data}</p>
-   
+      <p>post: {data}</p>
+   <p className={`badge ${car.availability==='Available' ? 'text-green-500':''} ${car.availability==='Not Available' ? 'text-red-500':''}`}> {car.availability}</p>
     <hr />
     <div className="flex justify-between items-center">
     <p> <span className="font-bold text-3xl
@@ -40,7 +45,7 @@ const data =useFormatDate(car?.addedDate)
       <Link to={`/car-details/${car._id}`} className="btn  hover:bg-gray-500">book now</Link>
     </div>
   </div>
-</div>
+</motion.div>
     );
 };
 

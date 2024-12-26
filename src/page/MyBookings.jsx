@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { FaCalendarDays } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Loader from "../components/Loader";
 
 const MyBookings = () => {
   
@@ -104,7 +105,8 @@ const MyBookings = () => {
 }
 } */
 
-
+if(!bookings)
+  return<Loader></Loader>
 
     return (
       <div>
@@ -136,7 +138,7 @@ const MyBookings = () => {
                   <td className="border border-gray-300 p-2">{format(new Date(booking.pickUpDate), 'dd/MM/yyyy')}</td>
                   <td className="border border-gray-300 p-2">{format(new Date(booking.dropOffDate), 'dd/MM/yyyy')}</td>
                   <td className="border border-gray-300 p-2">{booking.totalPrice}</td>
-                  <td className="border border-gray-300 p-2">{booking.status}</td>
+                  <td className={`border border-gray-300 p-2 ${booking.status==='Pending'? 'text-blue-400':'text-red-400'}`}>{booking.status}</td>
                   <td className="border border-gray-300 p-2 space-x-2">
                     <button
                       className="btn btn-primary"

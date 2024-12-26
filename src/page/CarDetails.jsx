@@ -81,10 +81,7 @@ const CarDetails = () => {
     <hr />
     <h2 className="text-2xl font-bold">{car?.model}</h2>
     <ul>
-        <li className="flex justify-between p-2">
-            <span>Availability</span>
-            <span></span>
-        </li>
+        
         <li className="flex justify-between p-2 ">
             <span>Features:</span>
             <span className=""> {car.features.map((feature, index) => (
