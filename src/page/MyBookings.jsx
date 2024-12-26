@@ -6,9 +6,10 @@ import { format } from "date-fns";
 import { FaCalendarDays } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Loader from "../components/Loader";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyBookings = () => {
-  
+  const axiosSecure=useAxiosSecure()
     const {user}=useContext(AuthContext)
     const [bookings, setBookings] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +20,7 @@ const MyBookings = () => {
 
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_url}/mybookings/${user?.email}`);
+        const response = await axiosSecure.get(`${import.meta.env.VITE_url}/mybookings/${user?.email}`);
         setBookings(response.data);
 
       } catch (error) {

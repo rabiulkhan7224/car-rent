@@ -9,6 +9,7 @@ import AddCar from '../page/AddCar';
 import CarDetails from '../page/CarDetails';
 import MyBookings from '../page/MyBookings';
 import PrivateRouter from '../Private/PrivateRouter';
+import MyCarsPage from '../page/MyCarsPage';
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
             {
                 path:'/mybookings',
                 element:<PrivateRouter><MyBookings /></PrivateRouter>,
+               
+            },
+            {
+                path:'/myCars',
+                element:<PrivateRouter><MyCarsPage /></PrivateRouter>,
                
             },
         ]

@@ -16,7 +16,9 @@ const AvailableCars = () => {
     return (
         <div>
             <div>
-                <h1>sort</h1>
+                
+                
+                
             </div>
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {

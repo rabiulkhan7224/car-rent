@@ -18,6 +18,12 @@ const NavBar = () => {
         <li><NavLink className={({ isActive }) =>
             isActive ? "text-red-500" : "text-black"
         } to={'/add-car'}>Add Car</NavLink></li>
+        <li><NavLink className={({ isActive }) =>
+            isActive ? "text-red-500" : "text-black"
+        } to={'/mycars'}>My Cars</NavLink></li>
+        <li><NavLink className={({ isActive }) =>
+            isActive ? "text-red-500" : "text-black"
+        } to={'/mybookings'}>My Booking</NavLink></li>
         
     </>
     const navigate = useNavigate()
@@ -56,7 +62,7 @@ const NavBar = () => {
                             {link}
                         </ul>
                     </div>
-                    <Link to={'/'} className="btn btn-ghost text-xl">Car rent</Link>
+                    <Link to={'/'} className="btn font-bold btn-ghost text-2xl">Car rent</Link>
                 </div>
                 <div className="navbar-center hidden md:flex">
                     <ul className="menu menu-horizontal px-1">

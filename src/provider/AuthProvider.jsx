@@ -40,6 +40,16 @@ const AuthProvider = ({children}) => {
         const unsubscribe =  onAuthStateChanged(auth,(currentUser)=>{
             setUser(currentUser)
             setLoader(false)
+           
+            if(currentUser?.email){
+                const user={email:currentUser.email}
+                  axios.post(`${import.meta.env.VITE_url}/jwt`,user,{withCredentials:true})
+                  .then(res=>console.log('login',res.data))
+              }else{
+                axios.post(`${import.meta.env.VITE_url}/logout`,{},{withCredentials:true})
+                .then(res=>console.log('logout:',res.data))
+              }
+              
         })
         return()=>unsubscribe()
     },[auth])

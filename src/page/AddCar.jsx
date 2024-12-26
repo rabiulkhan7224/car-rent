@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 
 const AddCar = () => {
     const { user } = useContext(AuthContext)
+    
     const [carDetails, setCarDetails] = useState({
         model: "",
-        price: "",
+        price: '',
         availability: "",
         registration: "",
         features: [],
@@ -21,12 +22,31 @@ const AddCar = () => {
         
     });
     
- // List of available features
- const featureOptions = ["GPS", "AC", "Bluetooth", "Heated Seats", "Sunroof"];
 
- // Handle change for checkboxes
- const handleFeatureChange = (e) => {
-   const { value, checked } = e.target;
+    const newdata={
+model:carDetails.model,
+price:parseInt(carDetails.price),
+availability:carDetails.availability,
+registration:carDetails.registration,
+features:carDetails.features,
+description:carDetails.description,
+images:carDetails.images,
+location:carDetails.location,
+bookingCount:carDetails.bookingCount,
+userEmail:carDetails.userEmail,
+addedDate:carDetails.addedDate,
+defaultBookingStatus:carDetails.defaultBookingStatus,
+
+}
+console.log(carDetails.availability,newdata.availability)
+
+// List of available features
+const featureOptions = ["GPS", "AC", "Bluetooth", "Heated Seats", "Sunroof"];
+
+// Handle change for checkboxes
+const handleFeatureChange = (e) => {
+  const { value, checked } = e.target;
+  
 
    setCarDetails((prevDetails) => {
      const updatedFeatures = checked
@@ -38,6 +58,7 @@ const AddCar = () => {
  };
 
 
+
     const handleChange = (e) => {
         
         setCarDetails({ ...carDetails, [e.target.name]: e.target.value });
@@ -46,9 +67,10 @@ const AddCar = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
           
-            const {data}=await axios.post(`${import.meta.env.VITE_url}/add-cars`,carDetails)
+            const {data}=await axios.post(`${import.meta.env.VITE_url}/add-cars`,newdata)
             
             if (data.insertedId) {
                  
@@ -82,13 +104,24 @@ const AddCar = () => {
                     name="price"
                     value={carDetails.price}
                     onChange={handleChange}
+                    
                     placeholder="Daily Rental Price"
                     className="input input-bordered w-full"
                     required
                 />
+                <input
+                    type="text"
+                    name="availability"
+                    value={carDetails.availability}
+                    onChange={handleChange}
+                    
+                    placeholder="Available or Not Available"
+                    className="input input-bordered w-full"
+                    required
+                />
                 
-               <select
-          name="availability"
+               {/* <select
+          
           value={carDetails.availability}
           onChange={handleChange}
           required
@@ -96,7 +129,7 @@ const AddCar = () => {
         >
           <option value="Available">Available</option>
           <option value="Not Available">Not Available</option>
-        </select>
+        </select> */}
                 <input
                     type="text"
                     name="registration"

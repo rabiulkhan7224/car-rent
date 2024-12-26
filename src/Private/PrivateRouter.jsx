@@ -8,7 +8,12 @@ const PrivateRouter = ({children}) => {
     const location = useLocation()
 
   
-  if (user) return children
+    if(loader){
+        return <Loader></Loader>
+     }
+     if(user){
+         return children
+     }
   return <Navigate to='/login' state={location.pathname} />
 }
 
