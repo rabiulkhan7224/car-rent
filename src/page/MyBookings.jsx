@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../provider/AuthProvider";
-import { toast } from "react-toastify";
 import { format } from "date-fns";
-import { FaCalendarDays } from "react-icons/fa6";
+import { useContext, useEffect, useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { FaCalendarDays } from "react-icons/fa6";
+import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { AuthContext } from "../provider/AuthProvider";
 
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure()
@@ -109,8 +109,7 @@ const MyBookings = () => {
 }
 } */
 
-  if (!bookings)
-    return <Loader></Loader>
+  if (!bookings) return <Loader></Loader>
 
 
   return (
@@ -133,6 +132,7 @@ const MyBookings = () => {
               </tr>
             </thead>
             <tbody>
+              {bookings.length<0 && <h1>No Bookings data</h1>}
               {bookings.map((booking) => (
                 <tr key={booking._id} className="hover:bg-blue-100">
                   <td className="border border-gray-300 p-2">

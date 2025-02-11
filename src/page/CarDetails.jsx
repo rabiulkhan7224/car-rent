@@ -8,7 +8,7 @@ const CarDetails = () => {
     const {user}=useContext(AuthContext)
     const data=useLoaderData()
     const [car,setCar]=useState(data)
-    console.log(data)
+    
 
 
 
@@ -17,7 +17,7 @@ const CarDetails = () => {
     const [messageSent, setMessageSent] = useState(false);
         const parse=parseInt(car.price)
     const totalPricevat=parse*0.02+parse
-    console.log(totalPricevat)
+    
   
     const handleFormSubmit = async (e) => {
       e.preventDefault(); 
@@ -44,7 +44,6 @@ const CarDetails = () => {
         bookingDate: new Date()
       };
   
-      console.log("Submitted Data:", formData);
 
       try {
           
