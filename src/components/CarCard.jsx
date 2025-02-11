@@ -44,7 +44,7 @@ const data =useFormatDate(car?.addedDate)
     <div className="flex justify-between items-center">
     <p> <span className="font-bold text-3xl
     ">${car?.price}</span>/Per Day</p>
-      <Link to={`/car-details/${car._id}`} className="btn  hover:bg-gray-500">book now</Link>
+      <Link to={`/car-details/${car._id}`} className="btn  hover:bg-green-500">book now</Link>
     </div>
   </div>
 </motion.div>

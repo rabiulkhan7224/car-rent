@@ -5,7 +5,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 
 const Home = () => {
     return (
-        <div>
+        <div className="overflow-y-hidden">
             <Banner></Banner>
 
             <div>
