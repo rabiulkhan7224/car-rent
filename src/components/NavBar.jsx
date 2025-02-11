@@ -1,8 +1,8 @@
-import { Link, NavLink, useNavigate } from "react-router";
-import { AuthContext } from "../provider/AuthProvider";
 import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-
+import { AuthContext } from "../provider/AuthProvider";
+import carLogo from '../assets/car-rent-logo.png'
 
 const NavBar = () => {
 
@@ -62,7 +62,13 @@ const NavBar = () => {
                             {link}
                         </ul>
                     </div>
-                    <Link to={'/'} className="btn font-bold btn-ghost text-2xl">Car rent</Link>
+                    <div className="flex items-center "> 
+                    <Link to={'/'} className=""><div className="w-24 h-24">
+                        <img src={carLogo}  alt="logo" />
+                            </div></Link>
+                         </div>
+                   
+                    
                 </div>
                 <div className="navbar-center hidden md:flex">
                     <ul className="menu menu-horizontal px-1">

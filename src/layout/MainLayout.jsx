@@ -10,7 +10,7 @@ const MainLayout = () => {
                 <NavBar></NavBar>
             </div>
 
-            <div className='mt-28 min-h-[calc(100vh-306px)]'>
+            <div className='container mx-auto mt-28 min-h-[calc(100vh-306px)]'>
                 <Outlet />
             </div>
             <Footer></Footer>

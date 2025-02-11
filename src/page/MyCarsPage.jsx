@@ -4,8 +4,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../provider/AuthProvider';
 import { div } from 'motion/react-client';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const MyCarsPage = () => {
+    const axiosSecure=useAxiosSecure()
     const [cars, setCars] = useState([]);
     const [sortOption, setSortOption] = useState('date_newest');
     const [ddata, setDdata] = useState(null)
@@ -70,10 +72,10 @@ defaultBookingStatus
 
         sortBy: sortOption
     }
-    console.log(newinfo.sortBy)
+   
     const fetchCars = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_url}/mycars/${user?.email}?sortBy=${sortOption}`);
+            const response = await axiosSecure.get(`${import.meta.env.VITE_url}/mycars/${user?.email}?sortBy=${sortOption}`);
             setCars(response.data);
         } catch (error) {
             console.error("Error fetching cars:", error);
@@ -129,7 +131,7 @@ defaultBookingStatus
                 `${import.meta.env.VITE_url}/update-cars/${ddata._id}`,
                 carDetails
             );
-            console.log(data)
+            
             if (data.matchedCount) {
                 toast.success("Car Update successfully!");
                 form.reset();
@@ -157,12 +159,12 @@ defaultBookingStatus
             console.log(error)
         }
     };
-    console.log(ddata)
+    
     useEffect(() => {
         fetchCars();
     }, [sortOption, user]);
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 ">
             <h1 className="text-3xl font-bold mb-6">My Cars</h1>
 
 
@@ -179,8 +181,9 @@ defaultBookingStatus
                     <option value='price_highest'>Price (Highest First)</option>
                 </select>
             </div>
+            <div className="overflow-x-auto"> 
 
-            <table className="w-full border-collapse">
+            <table className="w-full border-collapse ">
                 <thead>
                     <tr>
                         <th className="border py-2 px-4">Car Image</th>
@@ -222,6 +225,8 @@ defaultBookingStatus
                     ))}
                 </tbody>
             </table>
+            </div>
+
             {
                 isdeleteModalOpen &&
                 <div className="modal modal-open">

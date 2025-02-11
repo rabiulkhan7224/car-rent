@@ -9,49 +9,52 @@ import Loader from "../components/Loader";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyBookings = () => {
-  const axiosSecure=useAxiosSecure()
-    const {user}=useContext(AuthContext)
-    const [bookings, setBookings] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-    const [newDates, setNewDates] = useState({ pickUpDate: "", dropOffDate: "",bookingDate:new Date() });
-    const [selectedBooking, setSelectedBooking] = useState(null);
-    const [cancelId,setCancelId]=useState(null)
+  const axiosSecure = useAxiosSecure()
+  const { user } = useContext(AuthContext)
+  const [bookings, setBookings] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [newDates, setNewDates] = useState({ pickUpDate: "", dropOffDate: "", bookingDate: new Date() });
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [cancelId, setCancelId] = useState(null)
 
-    const fetchBookings = async () => {
-      try {
-        const response = await axiosSecure.get(`${import.meta.env.VITE_url}/mybookings/${user?.email}`);
-        setBookings(response.data);
+  const fetchBookings = async () => {
+    try {
+      const response = await axiosSecure.get(`${import.meta.env.VITE_url}/mybookings/${user?.email}`);
+      setBookings(response.data);
 
-      } catch (error) {
-        toast.error("Error fetching bookings:", error);
-      }
-    };
+    } catch (error) {
+      // clg("Error fetching bookings:", error);
+      console.log("Error fetching bookings:", error)
+    }
+  };
   useEffect(() => {
-    
+
 
     fetchBookings();
   }, [user]);
 
-  const handleModifyBooking =async () => {
+  const handleModifyBooking = async () => {
     try {
-          
-      const {data}=await axios.put(`${import.meta.env.VITE_url}/modify/${selectedBooking}`,newDates)
+
+      const { data } = await axios.put(`${import.meta.env.VITE_url}/modify/${selectedBooking}`, newDates)
       console.log(data)
       if (data.modifiedCount) {
         toast.success('Booking dates updated successfully. ')
-           
-         setIsModalOpen(false)
-         fetchBookings()
-        } else {
-              toast.warn("Failed to booking update. Try again.");}
-  } catch (error) {
-   
-  toast.error(error.message)
-}};
 
-   // Cancel Booking
-   const cancelBooking =  (id) => {
+        setIsModalOpen(false)
+        fetchBookings()
+      } else {
+        toast.warn("Failed to booking update. Try again.");
+      }
+    } catch (error) {
+
+      toast.error(error.message)
+    }
+  };
+
+  // Cancel Booking
+  const cancelBooking = (id) => {
 
     setIsCancelModalOpen(true)
     setCancelId(id)
@@ -63,27 +66,27 @@ const MyBookings = () => {
     //   console.error("Error canceling booking:", error);
     // }
   };
-  const handleCancelid= async()=>{
-    const newstatus={
+  const handleCancelid = async () => {
+    const newstatus = {
       status: "Cancaled"
     }
     try {
-        await axios.patch(`${import.meta.env.VITE_url}/bookings/${cancelId}`,newstatus);
-        toast.success('this Booking canceled')
-        setIsCancelModalOpen(false)
-        fetchBookings()
-      } catch (error) {     
-        console.error("Error canceling booking:", error);
-      }
+      await axios.patch(`${import.meta.env.VITE_url}/bookings/${cancelId}`, newstatus);
+      toast.success('this Booking canceled')
+      setIsCancelModalOpen(false)
+      fetchBookings()
+    } catch (error) {
+      console.error("Error canceling booking:", error);
+    }
   }
 
   // Modify Booking Date
-  const modifyBooking =  (id) => {
+  const modifyBooking = (id) => {
     setIsModalOpen(true)
     setSelectedBooking(id)
   }
-      
-  
+
+
   /**{
     {
     "_id": "676ad2e376ea188413951127",
@@ -106,13 +109,14 @@ const MyBookings = () => {
 }
 } */
 
-if(!bookings)
-  return<Loader></Loader>
+  if (!bookings)
+    return <Loader></Loader>
 
-    return (
-      <div>
 
-        <div className="container mx-auto p-4">
+  return (
+    <div>
+
+      <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">My Bookings</h1>
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse border border-gray-300">
@@ -135,16 +139,20 @@ if(!bookings)
                     <img src={booking.carInfo.carImg} alt="Car" className="w-20 rounded-md" />
                   </td>
                   <td className="border border-gray-300 p-2">{booking.carInfo.carModel}</td>
-                  <td className="border border-gray-300 p-2">{format(new Date(booking.bookingDate), ' h : mm aaa dd/MM/yyyy ')}</td>
-                  <td className="border border-gray-300 p-2">{format(new Date(booking.pickUpDate), 'dd/MM/yyyy')}</td>
-                  <td className="border border-gray-300 p-2">{format(new Date(booking.dropOffDate), 'dd/MM/yyyy')}</td>
+                  <td className="border border-gray-300 p-2">{(format(new Date(booking?.bookingDate), ' h : mm aaa dd/MM/yyyy '))}</td>
+                  <td className="border border-gray-300 p-2">{booking.pickUpDate && !isNaN(new Date(booking.pickUpDate))
+                    ? format(new Date(booking.pickUpDate), 'dd/MM/yyyy')
+                    : 'Invalid Date'}</td>
+                  <td className="border border-gray-300 p-2">{booking.dropOffDate && !isNaN(new Date(booking.dropOffDate))
+                    ? format(new Date(booking.dropOffDate), 'dd/MM/yyyy')
+                    : 'Invalid Date'}</td>
                   <td className="border border-gray-300 p-2">{booking.totalPrice}</td>
-                  <td className={`border border-gray-300 p-2 ${booking.status==='Pending'? 'text-blue-400':'text-red-400'}`}>{booking.status}</td>
+                  <td className={`border border-gray-300 p-2 ${booking.status === 'Pending' ? 'text-blue-400' : 'text-red-400'}`}>{booking.status}</td>
                   <td className="border border-gray-300 p-2 space-x-2">
                     <button
                       className="btn btn-primary"
                       onClick={() => modifyBooking(booking._id)}
-                      // onClick={()=>setIsModalOpen(true)}
+                    // onClick={()=>setIsModalOpen(true)}
                     >
                       <FaCalendarDays />
                       Modify Date
@@ -163,28 +171,27 @@ if(!bookings)
           </table>
         </div>
       </div>
-              {
-                isCancelModalOpen && 
-                <div className="modal modal-open">
-                  <div className="modal-box">
-                   <h1>Are you sure you want to cancel this booking?
-                   </h1>
-                   <button onClick={handleCancelid} className="btn bg-orange-300">Yes</button>
-                   <button onClick={()=>setIsCancelModalOpen(false) } className="btn ">NO</button>
-                    
+      {isCancelModalOpen &&
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h1>Are you sure you want to cancel this booking?
+            </h1>
+            <button onClick={handleCancelid} className="btn bg-orange-300">Yes</button>
+            <button onClick={() => setIsCancelModalOpen(false)} className="btn ">NO</button>
 
-                  </div>
 
-                </div>
-              }
-               {/* Modify Booking Date Modal */}
+          </div>
+
+        </div>
+      }
+      {/* Modify Booking Date Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-4 rounded shadow">
             <h2 className="text-lg font-bold mb-2">Modify Booking Dates</h2>
-           <form>
+            <form>
 
-           </form>
+            </form>
             <div className="mb-4">
               <label className="block text-sm font-medium">Pick Up Date</label>
               <input
@@ -208,7 +215,7 @@ if(!bookings)
             <div className="mt-4 flex justify-end gap-2">
               <button
                 className="bg-gray-300 px-3 py-1 rounded"
-                onClick={() =>setIsModalOpen(false)}
+                onClick={() => setIsModalOpen(false)}
               >
                 Cancel
               </button>
@@ -223,8 +230,8 @@ if(!bookings)
         </div>
       )}
 
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default MyBookings;

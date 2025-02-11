@@ -8,30 +8,30 @@ const axiosInstance = axios.create({
     withCredentials: true
 })
 
-const useAxiosSecure = () => {
+    const useAxiosSecure = () => {
 
-    const{logoutUser}=useContext(AuthContext)
-const navigate=useNavigate()
-useEffect(() => {
-    axiosInstance.interceptors.response.use(response => {
-        return response;
-    }, error => {
-        console.log('api response error', error.status)
-        if (error.status === 401 || error.status === 403) {
-            logoutUser()
-            .then(()=>{
-                console.log('logout user')
-                navigate('/login')
-                
-            })
-            .catch(err=>console.log(err))
-        }
-        return Promise.reject(error)
-    })
+        const{logoutUser}=useContext(AuthContext)
+    const navigate=useNavigate()
+    useEffect(() => {
+        axiosInstance.interceptors.response.use(response => {
+            return response;
+        }, error => {
+            console.log('api response error', error.status)
+            if (error.status === 401 || error.status === 403) {
+                logoutUser()
+                .then(()=>{
+                    console.log('logout user')
+                    navigate('/login')
+                    
+                })
+                .catch(err=>console.log(err))
+            }
+            return Promise.reject(error)
+        })
 
-}, [])
-return axiosInstance;
-};
-        
+    }, [])
+    return axiosInstance;
+    };
+            
 
 export default useAxiosSecure;
