@@ -9,7 +9,7 @@ const Home = () => {
             <Banner></Banner>
 
             <div>
-                <h1>Recent Listings Section</h1>
+                <h1 className="text-3xl font-bold text-center pt-5 pb-2">Most Recently </h1>
                 <Recent></Recent>
             </div>
             <div>

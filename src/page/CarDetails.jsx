@@ -99,7 +99,7 @@ const CarDetails = () => {
     </ul>
 
     <div className="card-actions justify-end">
-      <button  onClick={() => setIsModalOpen(true)} className="btn bg-orange-600 text-white hover:bg-green-800">book Now</button>
+      <button  onClick={() => setIsModalOpen(true)} className="btn bg-green-500 text-white hover:bg-green-800">book Now</button>
     </div>
   </div>
 </div>
