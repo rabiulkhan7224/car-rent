@@ -38,7 +38,7 @@ const NavBar = () => {
     }
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50">
+        <div className="fixed top-0 mx-auto container z-50">
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -71,9 +71,12 @@ const NavBar = () => {
                     
                 </div>
                 <div className="navbar-center hidden md:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        {link}
+                    <ul className="flex justify-around space-x-4 items-center">
+                    {link}
                     </ul>
+                    {/* <ul className="menu menu-horizontal px-1">
+                        
+                    </ul> */}
                 </div>
                 <div className="navbar-end">
                     {user ? <div className="dropdown dropdown-hover relative">
