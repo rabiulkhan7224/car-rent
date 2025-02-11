@@ -26,7 +26,7 @@ const Banner = () => {
 
           <motion.button
           
-            className="mt-6 px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 shadow-lg transition"
+            className="mt-6 px-6 py-3 bg-green-600 rounded-lg hover:bg-green-800   shadow-lg transition"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             whileHover={{ scale: 1.1 }}

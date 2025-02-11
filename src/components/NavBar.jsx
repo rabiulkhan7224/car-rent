@@ -9,7 +9,7 @@ const NavBar = () => {
     const { user, logoutUser } = useContext(AuthContext)
     const link = <>
         <li><NavLink className={({ isActive }) =>
-            isActive ? "text-red-500" : "text-black"
+            isActive ? "text-red-500" : "text-black hover:text-green-800"
         } to={'/'}>Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? "text-red-500" : "text-black"

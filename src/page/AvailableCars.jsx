@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CarCard from '../components/CarCard';
 import { IoGrid } from 'react-icons/io5';
 import { FaListUl } from 'react-icons/fa6';
+import Loader from '../components/Loader';
 
 const AvailableCars = () => {
     const [cars, setCars] = useState([])
@@ -47,7 +48,11 @@ const AvailableCars = () => {
 
 
             </div>
-            <div className={`${grid?'grid':'space-y-6'} gap-2  grid-cols-1 md:grid-cols-2 lg:grid-cols-3`}>
+            {
+                     !cars && <Loader></Loader>
+                }   
+            <div className={`${grid?'grid':'space-y-6'} gap-2  grid-cols-1 md:grid-cols-3 lg:grid-cols-4`}>
+                
                 {
                     cars.map(car => <CarCard key={car._id} car={car}></CarCard>)
                 }
