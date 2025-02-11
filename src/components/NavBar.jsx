@@ -12,17 +12,17 @@ const NavBar = () => {
             isActive ? "text-red-500" : "text-black hover:text-green-800"
         } to={'/'}>Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
-            isActive ? "text-red-500" : "text-black"
+            isActive ? "text-red-500" : "text-black  hover:text-green-800"
         } to={'/available-cars'}>Available Cars</NavLink></li>
         
         <li><NavLink className={({ isActive }) =>
-            isActive ? "text-red-500" : "text-black"
+            isActive ? "text-red-500" : "text-black  hover:text-green-800"
         } to={'/add-car'}>Add Car</NavLink></li>
         <li><NavLink className={({ isActive }) =>
-            isActive ? "text-red-500" : "text-black"
+            isActive ? "text-red-500" : "text-black  hover:text-green-800"
         } to={'/mycars'}>My Cars</NavLink></li>
         <li><NavLink className={({ isActive }) =>
-            isActive ? "text-red-500" : "text-black"
+            isActive ? "text-red-500" : "text-black  hover:text-green-800"
         } to={'/mybookings'}>My Booking</NavLink></li>
         
     </>
